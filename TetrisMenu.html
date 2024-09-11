@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Start Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="TetrisMenuStyles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("TetrisBackground.jpg");
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        .welcome-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .description-text {
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            width: 320px;
+            height: 500px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            background: linear-gradient(to bottom right, #e8f0d9, #f0f7e5);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .menu:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+        }
+        .menu .icon {
+            font-size: 55px;
+            color: #444;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+        .menu .icon.clicked {
+            color: red;
+        }
+        .menu .icon:hover {
+            color: red;
+        }
+        .menu .btn {
+            margin: 12px 0;
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .menu .btn:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+        .menu .btn i {
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        .menu .btn:hover i {
+            transform: rotate(10deg);
+        }
+        .menu .btn:active {
+            background-color: #b71c1c;
+        }
+        .dropdown.language-select {
+            width: 100%;
+        }
+        .dropdown .dropdown-toggle {
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .dropdown .dropdown-toggle:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+        .dropdown-menu {
+            width: 100%;
+        }
+        .dropdown-item {
+            font-size: 16px;
+            text-align: center;
+        }
+        .btn[title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <i id="userIcon" class="fa-solid fa-user icon"></i>
+        <h2 class="welcome-text">Welcome to Tetris!</h2>
+        <div class="description-text" id="descriptionLine1">This is a classic game.</div>
+        <div class="description-text" id="descriptionLine2">Try to fit the pieces together!</div>
+        <button id="startButton" class="btn" title="Click to start the game">
+            <i class="fa-solid fa-play"></i> Start Game
+        </button>
+        <button id="quitButton" class="btn" title="Exit the game">
+            <i class="fa-solid fa-door-closed"></i> Quit
+        </button>
+        <div class="dropdown language-select">
+            <button class="btn dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Select language">
+                <i class="fa-solid fa-globe"></i> Language
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
+                <li><a class="dropdown-item" href="#" data-lang="ur">Urdu</a></li>
+                <li><a class="dropdown-item" href="#" data-lang="ar">Arabic</a></li>
+                <li><a class="dropdown-item" href="#" data-lang="es">Spanish</a></li>
+                <li><a class="dropdown-item" href="#" data-lang="ru">Russian</a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const translations = {
+            en: {
+                start: 'Start Game',
+                quit: 'Quit',
+                selectLanguage: 'Language',
+                welcome: 'Welcome to Tetris!',
+                line1: 'This is a classic game.',
+                line2: 'Try to fit the pieces together!'
+            },
+            ur: {
+                start: 'کھیل شروع کریں',
+                quit: 'باہر نکلیں',
+                selectLanguage: 'زبان',
+                welcome: 'ٹیٹرس میں خوش آمدید',
+                line1: 'یہ ایک کلاسک کھیل ہے۔',
+                line2: 'پیسوں کو صحیح طریقے سے جوڑنے کی کوشش کریں!'
+            },
+            ar: {
+                start: 'ابدأ اللعبة',
+                quit: 'إغلاق',
+                selectLanguage: 'اللغة',
+                welcome: 'مرحبًا بك في لعبة تيتريس',
+                line1: 'هذه لعبة كلاسيكية.',
+                line2: 'حاول تركيب القطع معًا!'
+            },
+            es: {
+                start: 'Iniciar juego',
+                quit: 'Salir',
+                selectLanguage: 'Idioma',
+                welcome: '¡Bienvenido a Tetris!',
+                line1: 'Este es un juego clásico.',
+                line2: '¡Intenta encajar las piezas!'
+            },
+            ru: {
+                start: 'Начать игру',
+                quit: 'Выйти',
+                selectLanguage: 'Язык',
+                welcome: 'Добро пожаловать в Тетрис!',
+                line1: 'Это классическая игра.',
+                line2: 'Попробуйте разместить кусочки вместе!'
+            }
+        };
+
+        function setLanguage(lang) {
+            document.getElementById('startButton').innerHTML = `<i class="fa-solid fa-play"></i> ${translations[lang].start}`;
+            document.getElementById('quitButton').innerHTML = `<i class="fa-solid fa-door-closed"></i> ${translations[lang].quit}`;
+            document.getElementById('languageDropdown').innerHTML = `<i class="fa-solid fa-globe"></i> ${translations[lang].selectLanguage}`;
+            document.querySelector('.welcome-text').textContent = translations[lang].welcome;
+            document.getElementById('descriptionLine1').textContent = translations[lang].line1;
+            document.getElementById('descriptionLine2').textContent = translations[lang].line2;
+        }
+
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const selectedLang = this.getAttribute('data-lang');
+                setLanguage(selectedLang);
+            });
+        });
+
+        setLanguage('en');
+
+        document.getElementById('userIcon').addEventListener('click', function() {
+            this.classList.toggle('clicked');
+        });
+
+        document.getElementById('startButton').addEventListener('click', () => {
+            window.location.href = 'Tetris.html';
+        });
+
+        document.getElementById('quitButton').addEventListener('click', () => {
+            window.close();
+        });
+    </script>
+</body>
+</html>
